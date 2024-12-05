@@ -7,7 +7,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 # Load and preprocess the image
-image = Image.open("poisoned_image.png").convert("RGB")  # Replace with your image path
+image = Image.open("C:/Users/Anca/Documents/GitHub/cs454_project/code/poisoned_image.png").convert("RGB")  # Replace with your image path
 image_input = preprocess(image).unsqueeze(0).to(device)  # Preprocess and add batch dimension
 
 # Define a list of possible text labels
