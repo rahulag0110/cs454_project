@@ -66,18 +66,15 @@ def optimize_poison_image(xt, xa, F, lpips_fn, p, max_iters=100, alpha=0.1, lr=0
         loss.backward()
         optimizer.step()
 
-        if delta.grad is None or torch.all(delta.grad == 0):
-            print("Warning: Delta gradients are zero.")
-
         with torch.no_grad():
             delta.clamp_(-p, p)
 
     return (xt + delta).clamp(0, 1)
 
 
-p = 0.07  # Perturbation budget
-xt = cat_tensor.to(device)  # Original image
-xa = dog_tensor.to(device)  # Anchor image 
+p = 0.07  # Visual perturbation budget
+xt = cat_tensor.to(device)  
+xa = dog_tensor.to(device)  
 
 poisoned_image = optimize_poison_image(xt, xa, F, lpips_fn, p)
 print("Poisoned image tensor:", poisoned_image)
